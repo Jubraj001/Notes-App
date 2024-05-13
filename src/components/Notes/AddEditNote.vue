@@ -1,6 +1,7 @@
 <template>
   <div class="py-4 mb-4">
-    <textarea class="textarea" placeholder="Add New Note" :value="modelValue"
+    <label class="label" v-if="label">{{ label }}</label>
+    <textarea class="textarea" :placeholder="placeholder" :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)" ref="textAreaRef"></textarea>
     <slot name="button"></slot>
   </div>
@@ -8,7 +9,21 @@
 
 <script setup>
   import { ref } from 'vue';
-  const props = defineProps(['modelValue']);
+  const props = defineProps({
+    modelValue: {
+      type: String,
+      required: true
+    },
+    label: {
+      type: String,
+      default: 'Add Note'
+    },
+    placeholder: {
+      type: String,
+      default: 'Add Note'
+    }
+  }
+  );
   const emit = defineEmits(['update:modelValue']);
   const textAreaRef = ref(null);
 
