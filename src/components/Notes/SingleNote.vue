@@ -16,22 +16,23 @@
 </template>
 
 <script setup>
-  import { computed } from 'vue';
+  import { useNotesStore } from "@/stores/NotesStore";
+  import { computed } from "vue";
 
   const props = defineProps({
     note: {
       type: Object,
-      required: true
-    }
-  })
+      required: true,
+    },
+  });
+
+  const notesStore = useNotesStore();
 
   const characterLength = computed(() => {
     return props.note.content.length;
   });
 
-  const emit = defineEmits(['onDeleteClicked']);
-
   const handleDeleteClick = () => {
-    emit('onDeleteClicked', props.note.id);
-  }
+    notesStore.deleteNote(props.note.id);
+  };
 </script>
