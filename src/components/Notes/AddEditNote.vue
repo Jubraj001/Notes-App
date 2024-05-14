@@ -2,7 +2,7 @@
   <div class="py-4 mb-4">
     <label class="label" v-if="label">{{ label }}</label>
     <textarea class="textarea" :placeholder="placeholder" :value="modelValue"
-      @input="$emit('update:modelValue', $event.target.value)" ref="textAreaRef" v-autofocus></textarea>
+      @input="$emit('update:modelValue', $event.target.value)" ref="textAreaRef" maxlength="100" v-autofocus ></textarea>
     <slot name="button"></slot>
   </div>
 </template>
