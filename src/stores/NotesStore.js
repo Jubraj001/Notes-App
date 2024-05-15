@@ -1,16 +1,17 @@
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
-import { collection, getDocs, onSnapshot, setDoc, doc, updateDoc, deleteDoc } from "firebase/firestore";
+import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, query, orderBy } from "firebase/firestore";
 import { db } from "@/js/firebase";
 
 export const useNotesStore = defineStore('notesStore', () => {
   const notes = ref([]);
   const notesCollectionRef = collection(db, 'notes');
+  const notesCollectionQuery = query(notesCollectionRef, orderBy("date", "desc"));
 
   const addNote = async (noteContent) => {
     const currentDate = new Date().getTime().toString();
 
-    await setDoc(doc(notesCollectionRef, currentDate), { content: noteContent });
+    await addDoc(notesCollectionRef, { content: noteContent, date: currentDate });
   };
 
   const totalNotesCount = computed(() => {
@@ -36,7 +37,7 @@ export const useNotesStore = defineStore('notesStore', () => {
     //   notes.value.push(note);
     // });
 
-    onSnapshot(notesCollectionRef, (querySnapshot) => {
+    onSnapshot(notesCollectionQuery, (querySnapshot) => {
       let notesData = [];
       querySnapshot.forEach((doc) => {
         let note = {
