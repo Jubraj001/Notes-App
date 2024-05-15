@@ -5,6 +5,7 @@ import { db } from "@/js/firebase";
 
 export const useNotesStore = defineStore('notesStore', () => {
   const notes = ref([]);
+  const notesLoaded = ref(false);
   const notesCollectionRef = collection(db, 'notes');
   const notesCollectionQuery = query(notesCollectionRef, orderBy("date", "desc"));
 
@@ -48,6 +49,7 @@ export const useNotesStore = defineStore('notesStore', () => {
         notesData.push(note);
       });
       notes.value = notesData;
+      notesLoaded.value = true;
     });
   }
 
@@ -75,6 +77,7 @@ export const useNotesStore = defineStore('notesStore', () => {
     updateNote,
     totalNotesCount,
     totalCharactersCount,
-    getNotes
+    getNotes,
+    notesLoaded
   };
 })
