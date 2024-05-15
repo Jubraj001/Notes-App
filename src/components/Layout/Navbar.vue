@@ -15,6 +15,9 @@
     </div>
 
     <div id="navbarBasicExample" class="navbar-menu" :class="{ 'is-active': showNavbarMenu }">
+      <div class="navbar-start">
+        <button class="button is-info is-small mt-2 mb-2 ml-3">Logout</button>
+      </div>
       <div class="navbar-end">
         <RouterLink :to="{ name: 'notes' }" active-class="is-active" class="navbar-item"> Notes </RouterLink>
         <RouterLink :to="{ name: 'stats' }" active-class="is-active" class="navbar-item"> Stats </RouterLink>
