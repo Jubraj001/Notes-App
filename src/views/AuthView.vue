@@ -59,7 +59,7 @@
     if(register.value) {
       authStore.registerUser(credentials);
     } else {
-
+      authStore.loginUser(credentials);
     }
   }
 </script>

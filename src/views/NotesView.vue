@@ -16,7 +16,7 @@
 </template>
 
 <script setup>
-  import { ref } from 'vue';
+  import { onMounted, ref } from 'vue';
   import SingleNote from '../components/Notes/SingleNote.vue';
   import AddEditNote from '../components/Notes/AddEditNote.vue';
   import { useNotesStore } from '@/stores/NotesStore';
@@ -28,6 +28,10 @@
 
   const newNote = ref('');
   const addEditNoteRef = ref(null);
+
+  onMounted(() => {
+    notesStore.getNotes();
+  })
 
   const addNote = () => {
     notesStore.addNote(newNote.value);
