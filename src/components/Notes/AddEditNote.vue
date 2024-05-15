@@ -24,8 +24,7 @@
       type: String,
       default: 'Add Note'
     }
-  }
-  );
+  });
   const emit = defineEmits(['update:modelValue']);
   const textAreaRef = ref(null);
 
