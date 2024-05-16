@@ -29,10 +29,6 @@
   const newNote = ref('');
   const addEditNoteRef = ref(null);
 
-  onMounted(() => {
-    notesStore.getNotes();
-  })
-
   const addNote = () => {
     notesStore.addNote(newNote.value);
 

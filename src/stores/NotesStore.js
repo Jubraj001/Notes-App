@@ -2,12 +2,13 @@ import { defineStore } from "pinia";
 import { ref, computed } from "vue";
 import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, query, orderBy } from "firebase/firestore";
 import { db } from "@/js/firebase";
+import { useAuthStore } from "./AuthStore";
 
 export const useNotesStore = defineStore('notesStore', () => {
   const notes = ref([]);
   const notesLoaded = ref(false);
-  const notesCollectionRef = collection(db, 'notes');
-  const notesCollectionQuery = query(notesCollectionRef, orderBy("date", "desc"));
+  const authStore = useAuthStore();
+  let notesCollectionRef, notesCollectionQuery;
 
   const addNote = async (noteContent) => {
     const currentDate = new Date().getTime().toString();
@@ -29,6 +30,8 @@ export const useNotesStore = defineStore('notesStore', () => {
   })
 
   const getNotes = async () => {
+    notesCollectionRef = collection(db, 'users', authStore.user.uid, 'notes');
+    notesCollectionQuery = query(notesCollectionRef, orderBy("date", "desc"));
     // const querySnapshot = await getDocs(collection(db, "notes"));
     // querySnapshot.forEach((doc) => {
     //   let note = {

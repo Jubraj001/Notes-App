@@ -3,10 +3,12 @@ import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndP
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { useNotesStore } from "./NotesStore";
 
 export const useAuthStore = defineStore('authStore', () => {
   const user = ref({});
   const router = useRouter();
+  const notesStore = useNotesStore();
 
   const init = () => {
     onAuthStateChanged(auth, (userDetails) => {
@@ -15,6 +17,7 @@ export const useAuthStore = defineStore('authStore', () => {
         const uid = userDetails.uid;
         user.value = { email: userDetails.email, uid };
         router.push({ name: 'notes' });
+        notesStore.getNotes();
       } else {
         user.value = {};
         router.replace({ name: 'auth' });
