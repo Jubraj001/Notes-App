@@ -15,8 +15,10 @@
     </div>
 
     <div id="navbarBasicExample" class="navbar-menu" :class="{ 'is-active': showNavbarMenu }">
-      <div class="navbar-start">
-        <button class="button is-info is-small mt-2 mb-2 ml-3" @click.prevent="onLogout">Logout</button>
+      <div class="navbar-start" v-if="authStore.user.uid">
+        <button class="button is-info is-small mt-2 mb-2 ml-3" @click.prevent="onLogout">
+          Logout {{ authStore.user.email }}
+        </button>
       </div>
       <div class="navbar-end">
         <RouterLink :to="{ name: 'notes' }" active-class="is-active" class="navbar-item"> Notes </RouterLink>
