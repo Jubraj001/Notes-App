@@ -21,6 +21,7 @@ export const useAuthStore = defineStore('authStore', () => {
       } else {
         user.value = {};
         router.replace({ name: 'auth' });
+        notesStore.clearNotes();
       }
     });
   };
