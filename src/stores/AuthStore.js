@@ -13,7 +13,6 @@ export const useAuthStore = defineStore('authStore', () => {
   const init = () => {
     onAuthStateChanged(auth, (userDetails) => {
       if (userDetails) {
-        console.log(userDetails)
         const uid = userDetails.uid;
         user.value = { email: userDetails.email, uid };
         router.push({ name: 'notes' });
@@ -30,7 +29,6 @@ export const useAuthStore = defineStore('authStore', () => {
     createUserWithEmailAndPassword(auth, credentials.email, credentials.password)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(user);
       })
       .catch((error) => {
         console.log(error);
@@ -42,7 +40,6 @@ export const useAuthStore = defineStore('authStore', () => {
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
-      console.log(user)
     })
     .catch((error) => {
       console.log(error);
